@@ -1,273 +1,105 @@
-import {FaFacebook,  FaTwitter, FaInstagramSquare} from 'react-icons/fa'
+import { Facebook, Twitter, Instagram, Phone, Mail, MapPin } from "lucide-react";
+import { company, navLinks } from "../data/site";
 
+const serviceLinks = [
+  "Solar Installation",
+  "CCTV Installation",
+  "Electrical Wiring",
+  "Street Light Installation",
+  "Tech Consultation",
+];
 
-const Footer = () => {
+export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="border-t border-neutral-200 bg-[#1E4E79]  px-5 md:px-16 py-10 md:py-16">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          <div>
-            <a href={"/"} className="text-3xl">
-              
-
-              <p className="text-2xl text-white">Gennet Technology</p>
-            </a>
-            <p className="max-w-xs mt-4 text-sm text-white">
-              Quality Service At Its Best
+    <footer className="bg-brand-navy text-blue-100">
+      <div className="mx-auto max-w-7xl px-5 py-16 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-4">
+          {/* Brand */}
+          <div className="lg:col-span-1">
+            <div className="flex items-center gap-3">
+              <img
+                src={company.logo}
+                alt={company.name}
+                className="h-11 w-11 rounded-full ring-2 ring-white/20"
+              />
+              <span className="font-display text-lg font-semibold text-white">Gennet Tech</span>
+            </div>
+            <p className="mt-4 text-sm leading-relaxed">
+              Professional solar installation and CCTV security systems designed to
+              power and protect your home or business.
             </p>
-            <div className="flex mt-8 space-x-6 text-white">
-              <a
-                href=""
-                target="_blank"
-              >
-                <FaFacebook size={20} className="hover:text-[#F57C00] hover:-translate-y-1 transition-all" />
+            <div className="mt-6 flex gap-4">
+              <a href={company.socials.facebook} aria-label="Facebook">
+                <Facebook className="h-5 w-5 transition hover:-translate-y-1 hover:text-brand-orange" />
               </a>
-             
-              {/* <a
-                href=""
-                target="_blank"
-              >
-                <FaaedinIn size={20} className="hover:text-yellow hover:-translate-y-1 transition-all" />
-              </a> */}
-              <a href="" target="_blank">
-                <FaTwitter size={20} className="hover:text-[#F57C00] hover:-translate-y-1 transition-all" />
+              <a href={company.socials.twitter} aria-label="Twitter">
+                <Twitter className="h-5 w-5 transition hover:-translate-y-1 hover:text-brand-orange" />
               </a>
-              <a
-                href=""
-                target="_blank"
-              >
-                <FaInstagramSquare size={20} className="hover:text-[#F57C00] hover:-translate-y-1 transition-all" />
+              <a href={company.socials.instagram} aria-label="Instagram">
+                <Instagram className="h-5 w-5 transition hover:-translate-y-1 hover:text-brand-orange" />
               </a>
             </div>
-
-            <p className="leading-loose tracking-tighter  leading-normal mt-8 text-xs text-white">
-            At Gennet Tech Solutions Ltd, we specialize in professional solar panel installation and advanced CCTV security systems designed to power and protect your home or business.
-        </p>
           </div>
 
+          {/* Quick links */}
+          <div>
+            <h3 className="font-semibold text-white">Quick links</h3>
+            <ul className="mt-4 space-y-2 text-sm">
+              {navLinks.map((l) => (
+                <li key={l.name}>
+                  <a href={l.href} className="transition hover:text-brand-orange">
+                    {l.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        
+          {/* Services */}
+          <div>
+            <h3 className="font-semibold text-white">Services</h3>
+            <ul className="mt-4 space-y-2 text-sm">
+              {serviceLinks.map((s) => (
+                <li key={s}>
+                  <a href="#services" className="transition hover:text-brand-orange">
+                    {s}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-          <div className="grid gap-8 lg:col-span-2 grid-cols-2 md:grid-cols-4 text-white">
-            <div>
-              <p className="font-medium">QUICK aS</p>
-              <nav className="flex flex-col mt-4 space-y-2 text-sm">
-              <a
-                  href="/"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  Home
+          {/* Contact */}
+          <div>
+            <h3 className="font-semibold text-white">Contact</h3>
+            <ul className="mt-4 space-y-3 text-sm">
+              <li className="flex items-center gap-3">
+                <Phone className="h-4 w-4 text-brand-orange" />
+                <a href={`tel:${company.phoneRaw}`} className="hover:text-brand-orange">
+                  {company.phoneDisplay}
                 </a>
-
-                <a
-                  href="/about"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  About
+              </li>
+              <li className="flex items-center gap-3">
+                <Mail className="h-4 w-4 text-brand-orange" />
+                <a href={`mailto:${company.email}`} className="hover:text-brand-orange">
+                  {company.email}
                 </a>
-              
-                <a
-                  href="/contact"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  Contact
-                </a>
-                
-                
-
-
-
-                
-              </nav>
-            </div>
-            <div>
-              <p className="font-medium">SERVICES</p>
-              <nav className="flex flex-col mt-4 space-y-2 text-sm ">
-                <a
-                  href="/about"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  Solar Installation
-                </a>
-                <a
-                  href="/about"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  CCTV Installation
-                </a>
-                <a
-                  href="/about"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                 Electrical Wiring
-                </a>
-                <a
-                  href="/about"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  Street Light Installation
-                </a>
-
-               
-
-                <a
-                  href="/about"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  Tech solution Consultation
-                </a>
-
-
-                
-               
-              </nav>
-            </div>
-            <div>
-              <p className="font-medium">COMPANY</p>
-              <nav className="flex flex-col mt-4 space-y-2 text-sm ">
-                <a
-                  href="/"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  Global Website
-                </a>
-                
-                <a
-                  href="/policy"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  Terms & Condition
-                </a>
-
-                <a
-                  href="/policy"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  Privacy Policy
-                </a>
-
-                <a
-                  href="#"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                
-                >
-                <p>+234-902-855-5593</p>
-            
-                </a>
-                 <a
-                  href="#"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                
-                >
-                <p>info@gennetechsolution.com</p>
-            
-                </a>
-
-                
-              </nav>
-            </div>
-            <div>
-              <p className="font-medium">CITIES</p>
-              <nav className="flex flex-col mt-4 space-y-2 text-sm ">
-                <a
-                  href="/policy"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  Privacy Policy
-                </a>
-                <a
-                  href="/policy"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  Terms &amp; Conditions
-                </a>
-                
-                
-              </nav>
-            </div>
-
-
-            {/* <div>
-              <p className="font-medium">IN OTHER COUNTRIES</p>
-
-              <nav className="flex flex-col mt-4 space-y-2 text-sm ">
-                <a
-                  href="/"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  Austria
-
-                </a>
-                <a
-                  href="/"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  Belgium
-
-                </a>
-                <a
-                  href="/"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  France
-                </a>
-                <a
-                  href="/"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  Italy
-                </a>
-
-
-                <a
-                  href="/"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  Luxembourg
-                </a>
-
-
-                <a
-                  href="/"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  Poland
-                </a>
-
-                <a
-                  href="/"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  Spain
-                </a>
-
-                <a
-                  href="/"
-                  className="hover:opacity-75 hover:border-b hover:border-neutral-400 w-fit"
-                >
-                  Portugal
-                </a>
-              </nav>
-             
-              
-            </div> */}
-
-           
-
-
-           
-
-
+              </li>
+              <li className="flex items-center gap-3">
+                <MapPin className="h-4 w-4 text-brand-orange" />
+                {company.location}
+              </li>
+            </ul>
           </div>
         </div>
-        {/* <p className="mt-8 text-xs text-white">
-        SPIC AND SPAN. Home & Office Cleaning is an online marketplace that matches private and commercial<br/>cushrefmers with experienced cleaners in Austria, Belgium, France, Germany, Italy, Luxembourg, Poland, Portugal,<br/> Spain, and Sweden. SPIC AND SPAN. Home & Office Cleaning is a registered trademark of A&K Ventures OÜ,<br/> a company founded in July 2016 by Karol Kaczmarek and Amadeusz Annissimo.
-        </p> */}
-      </div>
 
-      
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm sm:flex-row">
+          <p>© {year} {company.name}. All rights reserved.</p>
+          <p className="text-blue-200">Quality service at its best.</p>
+        </div>
+      </div>
     </footer>
   );
-};
-
-export default Footer;
+}

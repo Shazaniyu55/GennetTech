@@ -1,90 +1,51 @@
-import React from "react";
 import { Linkedin, Twitter, Facebook } from "lucide-react";
+import SectionHeading from "./SectionHeading";
+import useReveal from "../hooks/useReveal";
+import { team } from "../data/site";
 
+export default function Team() {
+  const { ref, visible } = useReveal();
 
-const teamMembers = [
-  {
-    name: "Rasak Gbadamosi",
-    role: "CEO/Lead Solar Engineer",
-    bio: "Specializes in residential and commercial solar panel installations with over 10 years of experience.",
-    image: "/assets/gennet2.jpeg",
-    linkedin: "#",
-    twitter: "#",
-    facebook: "#",
-  },
-
-
-    {
-    name: "Shazaniyu Gbadamosi",
-    role: "Web/Graphics designer",
-    bio: "Develops website and graphics ",
-    image: "/assets/niyu.jpeg",
-    linkedin: "#",
-    twitter: "#",
-    facebook: "#",
-  },
-  
- 
-  
-];
-
-const TeamSection = () => {
   return (
-    <section className="bg-[#F4F6F8] py-24 px-6 md:px-16">
-      
-      {/* SECTION TITLE */}
-      <div className="text-center mb-16">
-        <h2 className="text-5xl font-bold text-[#1E4E79]">
-          Meet Our <span className="text-[#F57C00]">Team</span>
-        </h2>
-        <p className="text-gray-600 mt-4 max-w-2xl mx-auto text-lg">
-          Our dedicated professionals power your solar and CCTV installations with expertise and care.
-        </p>
-        <div className="w-24 h-1 bg-[#F57C00] mx-auto mt-6 rounded-full"></div>
-      </div>
+    <section id="team" className="bg-white py-24">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <SectionHeading
+          eyebrow="Our people"
+          title="Meet the"
+          highlight="team"
+          subtitle="The professionals who power and protect your space with care and expertise."
+        />
 
-      {/* TEAM GRID */}
-      <div className="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
-        {teamMembers.map((member, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-3xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300"
-          >
-            <img
-              src={member.image}
-              alt={member.name}
-              className="w-full h-64 object-cover"
-            />
-
-            <div className="p-6 text-center">
-              <h3 className="text-xl font-semibold text-[#1E4E79]">{member.name}</h3>
-              <p className="text-[#F57C00] font-medium mt-1">{member.role}</p>
-              <p className="text-gray-600 mt-2 text-sm">{member.bio}</p>
-
-              {/* SOCIAL ICONS */}
-              <div className="flex justify-center gap-4 mt-4">
-                {member.linkedin && (
-                  <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
-                    <Linkedin className="text-[#1E4E79] hover:text-[#F57C00]" />
+        <div
+          ref={ref}
+          className={`reveal ${visible ? "is-visible" : ""} mt-16 grid justify-center gap-8 sm:grid-cols-2 lg:grid-cols-3`}
+        >
+          {team.map((m) => (
+            <article
+              key={m.name}
+              className="mx-auto w-full max-w-sm overflow-hidden rounded-3xl bg-mist shadow-sm transition hover:shadow-xl"
+            >
+              <img src={m.image} alt={m.name} className="h-64 w-full object-cover" />
+              <div className="p-6 text-center">
+                <h3 className="text-xl font-semibold text-brand-navy">{m.name}</h3>
+                <p className="mt-1 font-medium text-brand-orange">{m.role}</p>
+                <p className="mt-3 text-sm text-gray-600">{m.bio}</p>
+                <div className="mt-5 flex justify-center gap-4">
+                  <a href={m.socials.linkedin} aria-label="LinkedIn">
+                    <Linkedin className="h-5 w-5 text-brand-navy transition hover:text-brand-orange" />
                   </a>
-                )}
-                {member.twitter && (
-                  <a href={member.twitter} target="_blank" rel="noopener noreferrer">
-                    <Twitter className="text-[#1E4E79] hover:text-[#F57C00]" />
+                  <a href={m.socials.twitter} aria-label="Twitter">
+                    <Twitter className="h-5 w-5 text-brand-navy transition hover:text-brand-orange" />
                   </a>
-                )}
-                {member.facebook && (
-                  <a href={member.facebook} target="_blank" rel="noopener noreferrer">
-                    <Facebook className="text-[#1E4E79] hover:text-[#F57C00]" />
+                  <a href={m.socials.facebook} aria-label="Facebook">
+                    <Facebook className="h-5 w-5 text-brand-navy transition hover:text-brand-orange" />
                   </a>
-                )}
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
-};
-
-export default TeamSection;
+}

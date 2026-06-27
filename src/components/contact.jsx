@@ -1,121 +1,136 @@
-import React, { useState, useEffect } from "react";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { useState } from "react";
+import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
+import SectionHeading from "./SectionHeading";
+import { company, whatsappLink } from "../data/site";
 
-const images = [
-  "/assets/gennet1.jpeg",
-  "/assets/gennet2.jpeg",
-  "/assets/gennet3.jpeg",
-];
+export default function Contact() {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
 
-const ContactSection = () => {
-  const [current, setCurrent] = useState(0);
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % images.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
+  // No backend on the site, so we route the enquiry straight to WhatsApp,
+  // where Gennet already receives messages. Reliable for a small business.
+  const sendWhatsApp = (e) => {
+    e.preventDefault();
+    const msg = `Hello Gennet Tech!%0A%0AName: ${form.name}%0AEmail: ${form.email}%0A%0A${form.message}`;
+    window.open(`https://wa.me/${company.whatsappRaw}?text=${msg}`, "_blank");
+  };
+
+  const sendEmail = () => {
+    const subject = encodeURIComponent(`Enquiry from ${form.name || "website"}`);
+    const body = encodeURIComponent(`${form.message}\n\nFrom: ${form.name} (${form.email})`);
+    window.location.href = `mailto:${company.email}?subject=${subject}&body=${body}`;
+  };
+
+  const details = [
+    { icon: Phone, label: company.phoneDisplay, href: `tel:${company.phoneRaw}` },
+    { icon: Mail, label: company.email, href: `mailto:${company.email}` },
+    { icon: MapPin, label: company.location },
+    { icon: Clock, label: company.hours },
+  ];
 
   return (
+    <section id="contact" className="bg-mist py-24">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <SectionHeading
+          eyebrow="Get in touch"
+          title="Contact"
+          highlight="us"
+          subtitle="Questions about solar or CCTV? Send a message and we'll get back to you fast."
+        />
 
-    
-    <section className="bg-[#F4F6F8] py-24 px-6 md:px-16">
+        <div className="mt-16 grid gap-10 lg:grid-cols-2">
+          {/* Left: info + CTA */}
+          <div className="flex flex-col justify-between rounded-3xl bg-brand-navy p-10 text-white">
+            <div>
+              <h3 className="text-2xl font-semibold">Let's power up your space</h3>
+              <p className="mt-3 text-blue-100">
+                Reach us directly or fill in the form — whichever is easier for you.
+              </p>
 
-      {/* SECTION TITLE */}
-      <div className="text-center mb-16">
-        <h2 className="text-5xl font-bold text-[#1E4E79]">
-          Contact <span className="text-[#F57C00]">Us</span>
-        </h2>
-        <p className="text-gray-600 mt-4 max-w-2xl mx-auto text-lg">
-          Have questions about solar installation or CCTV security systems? 
-          We’re ready to power and protect your property.
-        </p>
-        <div className="w-24 h-1 bg-[#F57C00] mx-auto mt-6 rounded-full"></div>
-      </div>
+              <ul className="mt-8 space-y-5">
+                {details.map((d) => {
+                  const Icon = d.icon;
+                  const content = (
+                    <span className="flex items-center gap-4">
+                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10">
+                        <Icon className="h-5 w-5 text-brand-yellow" />
+                      </span>
+                      <span className="text-blue-50">{d.label}</span>
+                    </span>
+                  );
+                  return (
+                    <li key={d.label}>
+                      {d.href ? (
+                        <a href={d.href} className="transition hover:text-brand-yellow">
+                          {content}
+                        </a>
+                      ) : (
+                        content
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
 
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-
-        {/* IMAGE SLIDER */}
-        <div className="relative w-full h-[400px] rounded-3xl overflow-hidden shadow-xl">
-          {images.map((img, index) => (
-            <img
-              key={index}
-              src={img}
-              alt="Our Work"
-              className={`absolute w-full h-full object-cover transition-opacity duration-1000 ${
-                index === current ? "opacity-100" : "opacity-0"
-              }`}
-            />
-          ))}
-
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-
-          <div className="absolute bottom-6 left-6 text-white">
-            <h3 className="text-2xl font-bold">
-              Our Recent Installations
-            </h3>
-            <p className="text-sm">
-              Solar & CCTV Projects Completed Successfully
-            </p>
+            <a
+              href={whatsappLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-10 inline-flex items-center justify-center gap-2 rounded-full bg-brand-green px-6 py-3.5 font-semibold text-white transition hover:brightness-110"
+            >
+              <MessageCircle className="h-5 w-5" /> Message us on WhatsApp
+            </a>
           </div>
-        </div>
 
-        {/* CONTACT FORM */}
-        <div className="bg-white p-10 rounded-3xl shadow-lg">
-          <h3 className="text-3xl font-semibold text-[#1E4E79] mb-6">
-            Send Us a Message
-          </h3>
-
-          <form className="space-y-5">
-            <input
-              type="text"
-              placeholder="Full Name"
-              className="w-full p-4 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F57C00]"
-            />
-
-            <input
-              type="email"
-              placeholder="Email Address"
-              className="w-full p-4 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F57C00]"
-            />
-
-            <textarea
-              rows="4"
-              placeholder="Your Message"
-              className="w-full p-4 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F57C00]"
-            ></textarea>
+          {/* Right: form */}
+          <form onSubmit={sendWhatsApp} className="rounded-3xl bg-white p-10 shadow-lg">
+            <div className="space-y-5">
+              <input
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                required
+                placeholder="Full name"
+                className="w-full rounded-xl border border-gray-200 p-4 outline-none transition focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/30"
+              />
+              <input
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={handleChange}
+                required
+                placeholder="Email address"
+                className="w-full rounded-xl border border-gray-200 p-4 outline-none transition focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/30"
+              />
+              <textarea
+                name="message"
+                rows="4"
+                value={form.message}
+                onChange={handleChange}
+                required
+                placeholder="How can we help?"
+                className="w-full rounded-xl border border-gray-200 p-4 outline-none transition focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/30"
+              />
+            </div>
 
             <button
               type="submit"
-              className="w-full bg-[#F57C00] hover:bg-[#E65100] text-white py-4 rounded-xl font-semibold transition duration-300 shadow-md"
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-brand-orange py-4 font-semibold text-white transition hover:bg-brand-orange-dark"
             >
-              Send Message
+              <MessageCircle className="h-5 w-5" /> Send via WhatsApp
+            </button>
+            <button
+              type="button"
+              onClick={sendEmail}
+              className="mt-3 w-full rounded-xl border border-gray-200 py-4 font-semibold text-brand-navy transition hover:bg-mist"
+            >
+              Prefer email? Send by email instead
             </button>
           </form>
-
-          {/* Contact Info */}
-          <div className="mt-8 space-y-4 text-gray-600">
-            <div className="flex items-center gap-3">
-              <Phone className="text-[#1E4E79]" />
-              <span>+234-902-855-5593</span>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <Mail className="text-[#1E4E79]" />
-              <span>info@gennettech.com</span>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <MapPin className="text-[#1E4E79]" />
-              <span>Abuja, Nigeria</span>
-            </div>
-          </div>
         </div>
-
       </div>
     </section>
   );
-};
-
-export default ContactSection;
+}

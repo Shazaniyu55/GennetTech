@@ -1,21 +1,16 @@
-import React from 'react';
-import NavBar from './navbar';
-import Footer from './footer';
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+import ScrollToTopButton from "./ScrollToTopButton";
 
-// I imported the navbar and footer to set them as my app structure but with a prop to control where they should show in the app.
-const Layouts = ({ children, showNavbar, showFooter }) => {
-  
-   
-  
+// Wraps a page with the shared navbar, footer and scroll-to-top button.
+// Toggle each via props where needed.
+export default function Layout({ children, showNavbar = true, showFooter = true }) {
   return (
-    <div>
-
-      {showNavbar && <NavBar/>}
-      {children}
-      {showFooter && <Footer/>}
-      
+    <div className="flex min-h-screen flex-col">
+      {showNavbar && <Navbar />}
+      <main className="flex-1">{children}</main>
+      {showFooter && <Footer />}
+      <ScrollToTopButton />
     </div>
   );
-};
-
-export default Layouts;
+}

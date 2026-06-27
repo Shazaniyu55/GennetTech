@@ -1,82 +1,98 @@
-import React from "react";
-import { ShieldCheck, Sun, Zap } from "lucide-react";
+import { Sun, ShieldCheck, Zap, CheckCircle2 } from "lucide-react";
+import useReveal from "../hooks/useReveal";
 
-const AboutSection = () => {
+const features = [
+  {
+    icon: Sun,
+    color: "text-brand-yellow",
+    title: "Sustainable solar solutions",
+    text: "Efficient solar and inverter systems that cut your bills and keep you running through outages.",
+  },
+  {
+    icon: ShieldCheck,
+    color: "text-brand-blue",
+    title: "Smart CCTV security",
+    text: "Modern surveillance with remote monitoring, so you can check in from anywhere.",
+  },
+  {
+    icon: Zap,
+    color: "text-brand-green",
+    title: "Reliable performance",
+    text: "Quality equipment, clean installs and ongoing support you can count on.",
+  },
+];
+
+const points = [
+  "Certified, experienced technicians",
+  "Honest quotes — no hidden costs",
+  "Quality, warrantied equipment",
+  "After-install maintenance & support",
+];
+
+export default function About() {
+  const { ref, visible } = useReveal();
+
   return (
-    <section className="bg-white py-20 px-6 md:px-16 mt-20 p-10">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-        
-        {/* Left Content */}
+    <section id="about" className="bg-mist py-24">
+      <div
+        ref={ref}
+        className={`reveal ${visible ? "is-visible" : ""} mx-auto grid max-w-7xl items-center gap-14 px-5 lg:grid-cols-2 lg:px-8`}
+      >
+        {/* Left: copy */}
         <div>
-          <h2 className="text-4xl md:text-5xl font-bold text-[#1E4E79] mb-6">
-            About Gennet Tech Solutions Ltd
+          <p className="text-sm font-semibold uppercase tracking-widest text-brand-orange">
+            About us
+          </p>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-brand-navy sm:text-4xl md:text-5xl">
+            Powering and protecting what matters most
           </h2>
-
-          <p className="text-gray-600 text-lg leading-relaxed mb-6">
-            At <span className="font-semibold text-[#F57C00]">Gennet Tech Solutions Ltd</span>, 
-            we specialize in delivering innovative solar energy systems and 
-            advanced CCTV security solutions tailored for homes and businesses. 
-            Our goal is to provide reliable power and smart protection using 
-            modern, energy-efficient technology.
+          <p className="mt-6 text-lg leading-relaxed text-gray-600">
+            At <span className="font-semibold text-brand-orange">Gennet Tech Solutions Ltd</span>,
+            we design and install solar energy systems and advanced CCTV security
+            for homes and businesses. Our mission is simple: reliable power and
+            smart protection, built with modern, energy-efficient technology.
+          </p>
+          <p className="mt-4 text-lg leading-relaxed text-gray-600">
+            With skilled technicians and quality equipment, every installation is
+            safe, durable and built to perform.
           </p>
 
-          <p className="text-gray-600 text-lg leading-relaxed mb-8">
-            With experienced technicians and high-quality equipment, we ensure 
-            every installation is safe, durable, and built to perform. 
-            We combine sustainability with smart security to power and protect 
-            what matters most to you.
-          </p>
+          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+            {points.map((p) => (
+              <li key={p} className="flex items-center gap-3 text-gray-700">
+                <CheckCircle2 className="h-5 w-5 shrink-0 text-brand-green" />
+                {p}
+              </li>
+            ))}
+          </ul>
 
-          <button className="bg-[#F57C00] hover:bg-[#E65100] text-white px-8 py-3 rounded-full shadow-lg transition duration-300">
-            Learn More
-          </button>
+          <a
+            href="#services"
+            className="mt-10 inline-flex rounded-full bg-brand-navy px-7 py-3 font-semibold text-white transition hover:bg-brand-navy-dark"
+          >
+            Explore our services
+          </a>
         </div>
 
-        {/* Right Features */}
-        <div className="space-y-6">
-          <div className="flex items-start gap-4 p-6 bg-[#F4F6F8] rounded-2xl shadow-sm hover:shadow-md transition">
-            <Sun className="text-[#FBC02D]" size={40} />
-            <div>
-              <h4 className="text-xl font-semibold text-[#1E4E79]">
-                Sustainable Solar Solutions
-              </h4>
-              <p className="text-gray-600">
-                Efficient solar panel installations designed to reduce energy 
-                costs and promote clean, renewable power.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-4 p-6 bg-[#F4F6F8] rounded-2xl shadow-sm hover:shadow-md transition">
-            <ShieldCheck className="text-[#1976D2]" size={40} />
-            <div>
-              <h4 className="text-xl font-semibold text-[#1E4E79]">
-                Smart CCTV Security
-              </h4>
-              <p className="text-gray-600">
-                Advanced surveillance systems with remote monitoring for 
-                maximum safety and peace of mind.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-4 p-6 bg-[#F4F6F8] rounded-2xl shadow-sm hover:shadow-md transition">
-            <Zap className="text-[#2E7D32]" size={40} />
-            <div>
-              <h4 className="text-xl font-semibold text-[#1E4E79]">
-                Reliable Performance
-              </h4>
-              <p className="text-gray-600">
-                Professional installation and ongoing support to ensure your 
-                systems operate efficiently and effectively.
-              </p>
-            </div>
-          </div>
+        {/* Right: feature cards */}
+        <div className="space-y-5">
+          {features.map((f) => {
+            const Icon = f.icon;
+            return (
+              <div
+                key={f.title}
+                className="flex items-start gap-4 rounded-2xl bg-white p-6 shadow-sm transition hover:shadow-md"
+              >
+                <Icon className={`h-10 w-10 shrink-0 ${f.color}`} />
+                <div>
+                  <h4 className="text-lg font-semibold text-brand-navy">{f.title}</h4>
+                  <p className="mt-1 text-gray-600">{f.text}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
-
       </div>
     </section>
   );
-};
-
-export default AboutSection;
+}
