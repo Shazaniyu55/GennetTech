@@ -172,11 +172,11 @@ export const team = [
     image: "/assets/gennet2.jpeg",
     socials: { linkedin: "#", twitter: "#", facebook: "#" },
   },
-  {
-    name: "Shazaniyu Gbadamosi",
-    role: "Web & Graphics Designer",
-    bio: "Builds the websites and visual identity that keep Gennet looking sharp online.",
-    image: "/assets/niyu.jpeg",
-    socials: { linkedin: "#", twitter: "#", facebook: "#" },
-  },
+  // {
+  //   name: "Shazaniyu Gbadamosi",
+  //   role: "Web & Graphics Designer",
+  //   bio: "Builds the websites and visual identity that keep Gennet looking sharp online.",
+  //   image: "/assets/niyu.jpeg",
+  //   socials: { linkedin: "#", twitter: "#", facebook: "#" },
+  // },
 ];
