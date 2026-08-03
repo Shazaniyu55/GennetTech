@@ -29,7 +29,7 @@ export default function Navbar() {
             className="h-11 w-11 rounded-full ring-2 ring-white/20"
           />
           <span className="hidden font-display font-semibold text-white sm:block">
-            Gennet Tech
+            GENNET TECH SOLUTIONS LTD
           </span>
         </a>
 
